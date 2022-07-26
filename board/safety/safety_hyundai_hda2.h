@@ -8,7 +8,7 @@ const int HYUNDAI_HDA2_DRIVER_TORQUE_FACTOR = 2;
 const uint32_t HYUNDAI_HDA2_STANDSTILL_THRSLD = 30;  // ~1kph
 
 const CanMsg HYUNDAI_HDA2_TX_MSGS[] = {
-  {0x12a, 1, 16},
+  {0x12a, 0, 16},
   {0x1CF, 1, 8},
 };
 
@@ -133,7 +133,7 @@ static int hyundai_hda2_rx_hook(CANPacket_t *to_push) {
     }
   }
 
-  generic_rx_checks((addr == 0x12a) && (bus == 1));
+  generic_rx_checks((addr == 0x12a) && (bus == 0));
 
   return valid;
 }
@@ -146,7 +146,7 @@ static int hyundai_hda2_tx_hook(CANPacket_t *to_send, bool longitudinal_allowed)
   int bus = GET_BUS(to_send);
 
   // steering
-  if ((addr == 0x12a) && (bus == 1)) {
+  if ((addr == 0x12a) && (bus == 0)) {
     int desired_torque = ((GET_BYTE(to_send, 6) & 0xFU) << 7U) | (GET_BYTE(to_send, 5) >> 1U);
     desired_torque -= 1024;
     uint32_t ts = microsecond_timer_get();
