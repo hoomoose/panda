@@ -1,5 +1,5 @@
 const SteeringLimits HYUNDAI_CANFD_STEERING_LIMITS = {
-  .max_steer = 270,
+  .max_steer = 384,
   .max_rt_delta = 112,
   .max_rt_interval = 250000,
   .max_rate_up = 3,
@@ -19,13 +19,13 @@ const CanMsg HYUNDAI_CANFD_HDA2_TX_MSGS[] = {
 
 const CanMsg HYUNDAI_CANFD_HDA1_TX_MSGS[] = {
   {0x12A, 0, 16}, // LFA
-  {0x1A0, 0, 32}, // CRUISE_INFO
   {0x1CF, 0, 8},  // CRUISE_BUTTON
   {0x1E0, 0, 16}, // LFAHDA_CLUSTER
 };
 
 AddrCheckStruct hyundai_canfd_addr_checks[] = {
-  {.msg = {{0x35, 0, 32, .check_checksum = true, .max_counter = 0xffU, .expected_timestep = 10000U},
+  {.msg = {{0x35, 1, 32, .check_checksum = true, .max_counter = 0xffU, .expected_timestep = 10000U},
+           {0x35, 0, 32, .check_checksum = true, .max_counter = 0xffU, .expected_timestep = 10000U},
            {0x105, 0, 32, .check_checksum = true, .max_counter = 0xffU, .expected_timestep = 10000U}, { 0 }}},
   {.msg = {{0x65, 1, 32, .check_checksum = true, .max_counter = 0xffU, .expected_timestep = 10000U},
            {0x65, 0, 32, .check_checksum = true, .max_counter = 0xffU, .expected_timestep = 10000U}, { 0 }}},
