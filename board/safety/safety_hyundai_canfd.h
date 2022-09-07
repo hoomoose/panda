@@ -230,10 +230,13 @@ static int hyundai_canfd_fwd_hook(int bus_num, CANPacket_t *to_fwd) {
     int is_lkas_msg = (((addr == 0x50) || (addr == 0x2a4)) && hyundai_canfd_hda2);
     int is_lfa_msg = ((addr == 0x12a) && !hyundai_canfd_hda2);
 
+    // Cruise Button Press
+    int is_cbp_msg = ((addr == 0x1cf) && !hyundai_canfd_hda2);
+    
     // HUD icons
     int is_lfahda_msg = ((addr == 0x1e0) && !hyundai_canfd_hda2);
 
-    int block_msg = is_lkas_msg || is_lfa_msg || is_lfahda_msg;
+    int block_msg = is_lkas_msg || is_lfa_msg || is_cbp_msg || is_lfahda_msg;
     if (!block_msg) {
       bus_fwd = 0;
     }
