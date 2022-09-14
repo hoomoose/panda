@@ -19,6 +19,7 @@ const CanMsg HYUNDAI_CANFD_HDA2_TX_MSGS[] = {
 
 const CanMsg HYUNDAI_CANFD_HDA1_TX_MSGS[] = {
   {0x12A, 0, 16}, // LFA
+  {0x1A0, 0, 32}, // CRUISE_INFO
   {0x1CF, 0, 8},  // CRUISE_BUTTON
   {0x1E0, 0, 16}, // LFAHDA_CLUSTER
 };
@@ -229,13 +230,13 @@ static int hyundai_canfd_fwd_hook(int bus_num, CANPacket_t *to_fwd) {
     int is_lkas_msg = (((addr == 0x50) || (addr == 0x2a4)) && hyundai_canfd_hda2);
     int is_lfa_msg = ((addr == 0x12a) && !hyundai_canfd_hda2);
 
-    // Cruise Button Press
-    int is_cbp_msg = ((addr == 0x1cf) && !hyundai_canfd_hda2);
+    // Cruise Info
+    int is_ci_msg = ((addr == 0x1a0) && !hyundai_canfd_hda2);
     
     // HUD icons
     int is_lfahda_msg = ((addr == 0x1e0) && !hyundai_canfd_hda2);
 
-    int block_msg = is_lkas_msg || is_lfa_msg || is_cbp_msg || is_lfahda_msg;
+    int block_msg = is_lkas_msg || is_lfa_msg || is_ci_msg || is_lfahda_msg;
     if (!block_msg) {
       bus_fwd = 0;
     }
