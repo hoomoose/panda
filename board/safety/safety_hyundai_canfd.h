@@ -276,7 +276,7 @@ static int hyundai_canfd_fwd_hook(int bus_num, CANPacket_t *to_fwd) {
     int is_lfa_msg = ((addr == 0x12a) && !hyundai_canfd_hda2);
 
     // 0x1a0 for hda1 long
-    int is_cruise_msg = ((addr == 0x1a0) && !hyundai_canfd_hda2);
+    int is_cruise_msg = ((addr == 0x1a0) && !hyundai_canfd_hda2 && hyundai_longitudinal);
     
     // HUD icons
     int is_lfahda_msg = ((addr == 0x1e0) && !hyundai_canfd_hda2);
