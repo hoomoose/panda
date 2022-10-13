@@ -1,7 +1,7 @@
 #include "safety_hyundai_common.h"
 
 const SteeringLimits HYUNDAI_CANFD_STEERING_LIMITS = {
-  .max_steer = 270,
+  .max_steer = 400,
   .max_rt_delta = 112,
   .max_rt_interval = 250000,
   .max_rate_up = 2,
@@ -36,7 +36,7 @@ const CanMsg HYUNDAI_CANFD_HDA2_LONG_TX_MSGS[] = {
 const CanMsg HYUNDAI_CANFD_HDA1_TX_MSGS[] = {
   {0x12A, 0, 16}, // LFA
   {0x1A0, 0, 32}, // CRUISE_INFO
-  {0x1CF, 0, 8},  // CRUISE_BUTTON
+  {0x1CF, 2, 8},  // CRUISE_BUTTON
   {0x1E0, 0, 16}, // LFAHDA_CLUSTER
 };
 
