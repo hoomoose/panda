@@ -178,10 +178,14 @@ static int hyundai_canfd_rx_hook(CANPacket_t *to_push) {
 
   const int steer_addr = hyundai_canfd_hda2 ? 0x50 : 0x12a;
   bool stock_ecu_detected = (addr == steer_addr) && (bus == 0);
-  if (hyundai_longitudinal && hyundai_canfd_hda2) {
+  if (hyundai_longitudinal) {
     // ensure ADRV ECU is still knocked out
-    stock_ecu_detected = stock_ecu_detected || ((addr == 0x1a0) && (bus == 1));
-  }
+    if (hyundai_canfd_hda2 && ((addr == 0x1a0) && (bus == 1))) {
+      stock_ecu_detected = true;
+    } else if (!hyundai_canfd_hda2 && ((addr == 0x1a0) && (bus == 0))) {
+      stock_ecu_detected = true;
+    }
+  }  
   generic_rx_checks(stock_ecu_detected);
 
   return valid;
