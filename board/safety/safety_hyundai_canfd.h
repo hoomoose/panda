@@ -50,6 +50,11 @@ const CanMsg HYUNDAI_CANFD_HDA1_TX_MSGS[] = {
   {0x1A0, 0, 32}, // CRUISE_INFO
   {0x1CF, 2, 8},  // CRUISE_BUTTON
   {0x1E0, 0, 16}, // LFAHDA_CLUSTER
+  
+  // for blinkers
+  {0x165, 2, 24}, // SPAS1
+  {0x16A, 2, 32}, // SPAS2
+  {0x7B1, 2, 8},  // tester present for APRK ECU disable
 };
 
 AddrCheckStruct hyundai_canfd_addr_checks[] = {
@@ -324,6 +329,12 @@ static int hyundai_canfd_tx_hook(CANPacket_t *to_send) {
 
   // UDS: only tester present ("\x02\x3E\x80\x00\x00\x00\x00\x00") allowed on diagnostics address
   if (((addr == 0x730) || (addr == 0x7b1)) && hyundai_canfd_hda2) {
+    if ((GET_BYTES_04(to_send) != 0x00803E02U) || (GET_BYTES_48(to_send) != 0x0U)) {
+      tx = 0;
+    }
+  }
+  // UDS: only tester present ("\x02\x3E\x80\x00\x00\x00\x00\x00") allowed on diagnostics address
+  if ((addr == 0x7b1) && hyundai_camera_scc) {
     if ((GET_BYTES_04(to_send) != 0x00803E02U) || (GET_BYTES_48(to_send) != 0x0U)) {
       tx = 0;
     }
