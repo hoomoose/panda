@@ -54,7 +54,7 @@ const CanMsg HYUNDAI_CANFD_HDA1_TX_MSGS[] = {
   // for blinkers
   {0x165, 2, 24}, // SPAS1
   {0x16A, 2, 32}, // SPAS2
-  {0x7B1, 2, 8},  // tester present for APRK ECU disable
+  {0x7B1, 0, 8},  // tester present for APRK ECU disable
 };
 
 AddrCheckStruct hyundai_canfd_addr_checks[] = {
