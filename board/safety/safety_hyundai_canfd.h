@@ -264,7 +264,7 @@ static bool hyundai_canfd_tx_hook(const CANPacket_t *to_send) {
         violation |= max_limit_check(desired_torque, 384, -384);
 
         // ready to blend in limits
-        desired_torque_last = MAX(-330, MIN(desired_torque, 330));
+        desired_torque_last = MAX(-384, MIN(desired_torque, 384));
         rt_torque_last = desired_torque;
         ts_torque_check_last = ts;
       }
