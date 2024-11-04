@@ -256,7 +256,7 @@ static bool hyundai_canfd_tx_hook(const CANPacket_t *to_send) {
     // 2m/s margin
     if ((hyundai_canfd_front_left_vego < (11.f + 2.f)) || (hyundai_canfd_rear_right_vego < (11.f + 2.f))) {
       
-      if (steer_torque_cmd_checks(desired_torque, HYUNDAI_CANFD_STEERING_LIMITS)) {
+      if (max_limit_check(desired_torque, 400, -400)) {
         tx = false;
       }
     } else {
